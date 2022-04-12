@@ -1,4 +1,4 @@
-#! deploy.sh
+#!/usr/bin/env sh
 
 # abort on errors
 set -e
@@ -17,9 +17,10 @@ git add -A
 git commit -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io
-# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
+# git push -f https://github.com/<USERNAME>/<USERNAME>.GitHub.io.git main
 
-# if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f https://github.com/VinceLee9527/vue3-drums.git master:gh-pages
+# if you are deploying to https://<USERNAME>.Github.io/<REPO>
+# git push -f https://github.com/<USERNAME>/<REPO>.git main:gh-pages
+git push -f https://github.com/VinceLee9527/vue3-drums.git main:gh-pages
 
 cd -
