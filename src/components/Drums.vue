@@ -14,6 +14,111 @@
   </div>
 </template>
 
+<script>
+import { reactive } from "@vue/reactivity";
+import { onMounted } from "vue";
+
+export default {
+  name: "Drumkit",
+  setup() {
+    const keys = reactive([
+      {
+        keyCode: 65,
+        keyName: "A",
+        soundName: "clap",
+        audio: new Audio("../src/assets/sounds/clap.wav"),
+        isPlaying: false,
+      },
+      {
+        keyCode: 83,
+        keyName: "S",
+        soundName: "hihat",
+        audio: new Audio("../src/assets/sounds/hihat.wav"),
+        isPlaying: false,
+      },
+      {
+        keyCode: 68,
+        keyName: "D",
+        soundName: "kick",
+        audio: new Audio("../src/assets/sounds/kick.wav"),
+        isPlaying: false,
+      },
+      {
+        keyCode: 70,
+        keyName: "F",
+        soundName: "openhat",
+        audio: new Audio("../src/assets/sounds/openhat.wav"),
+        isPlaying: false,
+      },
+      {
+        keyCode: 71,
+        keyName: "G",
+        soundName: "boom",
+        audio: new Audio("../src/assets/sounds/boom.wav"),
+        isPlaying: false,
+      },
+      {
+        keyCode: 72,
+        keyName: "H",
+        soundName: "ride",
+        audio: new Audio("../src/assets/sounds/ride.wav"),
+        isPlaying: false,
+      },
+      {
+        keyCode: 74,
+        keyName: "J",
+        soundName: "snare",
+        audio: new Audio("../src/assets/sounds/snare.wav"),
+        isPlaying: false,
+      },
+      {
+        keyCode: 75,
+        keyName: "K",
+        soundName: "tom",
+        audio: new Audio("../src/assets/sounds/tom.wav"),
+        isPlaying: false,
+      },
+      {
+        keyCode: 76,
+        keyName: "L",
+        soundName: "tink",
+        audio: new Audio("../src/assets/sounds/tink.wav"),
+        isPlaying: false,
+      },
+    ]);
+    onMounted(() => {
+      window.addEventListener("keydown", playSound);
+    });
+
+    const removeTransition = (e, key) => {
+      if (e.propertyName !== "transform") {
+        return;
+      }
+      key.isPlaying = false;
+    };
+
+    const playSound = (e) => {
+      const key = keys.find((key) => {
+        return key.keyCode === e.keyCode;
+      });
+      if (!key) {
+        return;
+      }
+
+      key.audio.currentTime = 0;
+      key.isPlaying = true;
+      key.audio.play();
+    };
+
+    return {
+      keys,
+      removeTransition,
+      playSound,
+    };
+  },
+};
+</script>
+
 <style scoped>
 .keys {
   display: flex;
